@@ -1,10 +1,5 @@
 package entity
 
-type TicketLog struct {
-	Description string
-	CreatedAt   string
-}
-
 type Ticket struct {
 	ID           string
 	CircuitID    string
@@ -22,5 +17,9 @@ func NewTicket() *Ticket {
 	return &Ticket{}
 }
 
-//Validar se o circuito é válido
 //Validar se circuito pertence ao cliente
+//Validar se o circuito é válido
+
+func (t *Ticket) IsValid() error {
+	return nil
+}
