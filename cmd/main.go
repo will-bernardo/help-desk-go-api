@@ -3,45 +3,27 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	db "github.com/will-bernardo/help-desk-go-api/infrastructure/database"
 )
 
-// 	ID           string
-// 	CircuitID    string
-// 	SuportID     string
-// 	TechnicianID string
-// 	Title        string
-// 	Description  string
-// 	Status       string
-// 	Logs         []TicketLog
-// 	UpdatedAt    string
-// 	CreatedAt    string
-// }
-
 func main() {
-	query := `
-		CREATE TABLE IF NOT EXISTS tickets (
-		id TEXT NOT NULL PRIMARY KEY,
-		circuit_id TEXT
-		suport_id TEXT
-		technitian_id TEXT
-		title TEXT
-		description TEXT
-		status TEXT
-		updated_at TEXT
-		created_at TEXT
-		)
-	`
-	sqlite, err := db.NewSQLiteConnection()
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	db, err := db.NewDBConnection()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	result, err2 := sqlite.Exec(query)
-	if err2 != nil {
-		log.Fatal(err2)
+	err1 := db.Ping()
+	if err1 != nil {
+		log.Fatal(err1)
 	}
 
-	fmt.Println(result)
+	fmt.Println(os.Getenv("Conected to database"))
 }
