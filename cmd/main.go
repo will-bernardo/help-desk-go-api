@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/joho/godotenv"
 	db "github.com/will-bernardo/help-desk-go-api/infrastructure/database"
@@ -19,11 +18,30 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.Close()
 
-	err1 := db.Ping()
-	if err1 != nil {
-		log.Fatal(err1)
+	fmt.Println("Conected to database")
+
+	rows, err := db.Query("select * from users")
+	if err != nil {
+		log.Fatal(err)
 	}
+	defer rows.Close()
 
-	fmt.Println(os.Getenv("Conected to database"))
+	for rows.Next() {
+		var (
+			id   string
+			name string
+			age  int32
+		)
+
+		if err = rows.Scan(&id, &name, &age); err != nil {
+			log.Fatal(err)
+		}
+
+		if err := rows.Err(); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("id: %s, name: %s, age: %d\n", id, name, age)
+	}
 }
