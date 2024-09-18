@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/joho/godotenv"
-	db "github.com/will-bernardo/help-desk-go-api/infrastructure/database"
+	db "github.com/will-bernardo/help-desk-go-api/infra/database"
 )
 
 func main() {

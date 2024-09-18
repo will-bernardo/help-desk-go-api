@@ -20,7 +20,7 @@ func NewCreateTicket(repo repository.TicketRepository) *CreatetTicket {
 }
 
 //1. Receber dados
-//2. Executar regras da entidade
+//2. Executar regras da entidade para a funcionalidade especifica
 //3. Persistir dados
 //4. Retornar dados
 
