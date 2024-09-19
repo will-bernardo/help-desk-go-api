@@ -35,14 +35,17 @@ func (ct *CreatetTicket) Execute(input dto.CreateTicketDtoInput) (dto.CreateTick
 
 	//Aplica regras
 	invalidTicket := ticket.IsValid()
-
 	if invalidTicket != nil {
 		log.Fatal("ticket inválido")
 	}
 
 	//Insere no banco
-	ct.Repository.Insert(*ticket)
+	err := ct.Repository.Insert(ticket.ID, ticket.CircuitID, ticket.Title, ticket.Description)
+	if err != nil {
+		log.Fatal(err)
+	}
 
+	//Retorna resultado
 	output := dto.CreateTicketDtoOutput{
 		Protocol: 69696969,
 	}
