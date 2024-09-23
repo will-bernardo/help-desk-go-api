@@ -2,10 +2,11 @@ package entity
 
 type Ticket struct {
 	ID           string
+	UserID       string
 	CircuitID    string
 	SuportID     string
 	TechnicianID string
-	Title        string
+	Subject      string
 	Description  string
 	Status       string
 	Logs         []TicketLog

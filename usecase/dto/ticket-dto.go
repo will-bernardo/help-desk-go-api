@@ -1,7 +1,7 @@
 package dto
 
 type CreateTicketDtoInput struct {
-	ID          string
+	UserID      string
 	Circuit     string
 	Title       string
 	Description string

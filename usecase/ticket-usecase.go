@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"log"
-	"time"
 
 	"github.com/will-bernardo/help-desk-go-api/entity"
 	"github.com/will-bernardo/help-desk-go-api/usecase/dto"
@@ -26,12 +25,10 @@ func NewCreateTicket(repo repository.TicketRepository) *CreatetTicket {
 
 func (ct *CreatetTicket) Execute(input dto.CreateTicketDtoInput) (dto.CreateTicketDtoOutput, error) {
 	ticket := entity.NewTicket()
-	ticket.ID = input.ID
+	ticket.UserID = input.UserID
 	ticket.CircuitID = input.Circuit
-	ticket.Title = input.Title
+	ticket.Subject = input.Title
 	ticket.Description = input.Description
-	ticket.UpdatedAt = time.Now().Format(time.RFC3339)
-	ticket.CreatedAt = time.Now().Format(time.RFC3339)
 
 	//Aplica regras
 	invalidTicket := ticket.IsValid()
@@ -40,7 +37,7 @@ func (ct *CreatetTicket) Execute(input dto.CreateTicketDtoInput) (dto.CreateTick
 	}
 
 	//Insere no banco
-	err := ct.Repository.Insert(ticket.ID, ticket.CircuitID, ticket.Title, ticket.Description)
+	err := ct.Repository.Insert(ticket.ID, ticket.CircuitID, ticket.Subject, ticket.Description)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -31,13 +31,13 @@ func (repo *TicketRepository) Select() ([]entity.Ticket, error) {
 		var ticket entity.Ticket
 		if err = rows.Scan(
 			&ticket.ID,
+			&ticket.UserID,
 			&ticket.CircuitID,
 			&ticket.SuportID,
 			&ticket.TechnicianID,
-			&ticket.Title,
+			&ticket.Subject,
 			&ticket.Description,
 			&ticket.Status,
-			&ticket.Logs,
 			&ticket.CreatedAt,
 			&ticket.UpdatedAt,
 		); err != nil {
@@ -50,10 +50,6 @@ func (repo *TicketRepository) Select() ([]entity.Ticket, error) {
 	}
 	return tickets, nil
 }
-
-
-
-
 
 func (repo *TicketRepository) Insert(
 	id string,
