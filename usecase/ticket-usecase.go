@@ -31,10 +31,10 @@ func (ct *CreatetTicket) Execute(input dto.CreateTicketDtoInput) (dto.CreateTick
 	ticket.Description = input.Description
 
 	//Aplica regras
-	invalidTicket := ticket.IsValid()
-	if invalidTicket != nil {
-		log.Fatal("ticket inválido")
-	}
+	// invalidTicket := ticket.IsValid()
+	// if invalidTicket != nil {
+	// 	log.Fatal("ticket inválido")
+	// }
 
 	//Insere no banco
 	err := ct.Repository.Insert(ticket.ID, ticket.CircuitID, ticket.Subject, ticket.Description)

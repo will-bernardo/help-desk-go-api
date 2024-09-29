@@ -1,5 +1,7 @@
 package entity
 
+import "errors"
+
 type Ticket struct {
 	ID           string
 	UserID       string
@@ -9,18 +11,19 @@ type Ticket struct {
 	Subject      string
 	Description  string
 	Status       string
-	Logs         []TicketLog
 	UpdatedAt    string
 	CreatedAt    string
 }
 
-func NewTicket() *Ticket {
-	return &Ticket{}
+func NewTicket(circuit string) *Ticket {
+	return &Ticket{
+		CircuitID: circuit,
+	}
 }
 
-//Validar se circuito pertence ao cliente
-//Validar se o circuito é válido
-
-func (t *Ticket) IsValid() error {
-	return nil
+func (t *Ticket) ValidateCircuit() (string, error) {
+	if len(t.CircuitID) == 0 {
+		return "", errors.New("Please provide a valid circuit identifier")
+	}
+	return t.CircuitID, nil
 }
